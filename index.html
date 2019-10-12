@@ -10,12 +10,11 @@
     crossorigin=""/>
 </head>
 <body>
-    <center><h1>Boom Bloom</h1></center>
-    <div class="row">
+    <h1>Boom Bloom</h1>
+    <div class="row" id="content">
         <div class="col-5">
             <div id="metadata" class="row">
                 <div id="metadatacol" class="col-7">
-
                     <label for="ville">Ville: </label>
                     <select id="ville" class="form-control">
                         <option>St-Michel-en-Grève</option>
@@ -30,7 +29,7 @@
                 <div class="col-5 align-items-center">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-header">Couverture d'algues verte</h5>
+                            <h6 class="card-header">Indice de présence algues vertes</h6>
                             <div id="icone" class="card-text">😁</div>
                             <div id="pourcentage" class="card-text">70%</div>
                         </div>
@@ -40,33 +39,33 @@
             <div class="col-12">
                 <div id="charts" class="row">
                     <div class="chart">
-                        <canvas id="chart1" width="500" height="250"></canvas>
+                        <canvas id="chart1" width="500" height="200"></canvas>
                     </div>
                     <div class="chart">
-                        <canvas id="chart2" width="500" height="250"></canvas>
+                        <canvas id="chart2" width="500" height="200"></canvas>
                     </div>
                 </div>
             </div>
         </div>
         <div id="map-wrapper" class="col-7">
-            <div id="fonds-de-carte">
-                <form action="#">
-                    <input id="photo" name="fond" type="radio"><label for="photo">Photo</label>
-                    <input id="osm" name="fond" type="radio"><label for="osm">OSM</label>
-                    <input id="temperature" name="fond" type="radio"><label for="temperature">Températures</label>
+            <div id="fonds-de-carte l-control">
+                <form action="#" class="row">
+                    <div class="col-4"><center><input id="photo" class=form-radio-input" name="fond" type="radio"><label class="fond" for="photo">Photo</label></center></div>
+                    <div class="col-4"><center><input id="osm" class=form-radio-input" name="fond" type="radio"><label class="fond" for="osm">OSM</label></center></div>
+                    <div class="col-4"><center><input id="temperature" class=form-radio-input" name="fond" type="radio"><label class="fond" for="temperature">Températures</label></center></div>
                 </form>
             </div>
             <div id="mapid"></div>
         </div>
     </div>
-        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-        crossorigin=""></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="./charts.js"></script>
-        <script src="./map.js"></script>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+    crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="./charts.js"></script>
+    <script src="./map.js"></script>
 </body>
 </html>
