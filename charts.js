@@ -7,7 +7,7 @@ function renderChart(data, labels, name) {
             datasets: [{
                 label: 'Indice NDVI',
                 data: data.ndvi,
-                backgroundColor: 'rgba(50, 205, 50, 0.2))',
+                backgroundColor: 'rgba(50, 205, 50, 0.2)',
                 borderWidth: 1
             },
             {

@@ -20,8 +20,14 @@ html, body {
     height: 100%;
 }
 
+#map-wrapper {
+    height: 100%;
+}
+#fonds-de-carte {
+    height: 50px;
+}
 #mapid {
-    height: 700px;
+    height: calc(100% - 50px);
 }
 
 #icone {
