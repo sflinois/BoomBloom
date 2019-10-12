@@ -8,6 +8,10 @@ html, body {
     height: 30%;
 }
 
+#metadatacol {
+    height: 100%;
+}
+
 #charts {
     height: 70%;
 }
@@ -16,9 +20,10 @@ html, body {
     height: 100%;
 }
 
-#map {
-    height: 100%;
+#mapid {
+    height: 700px;
 }
+
 
 * {
     border: 1px solid black;

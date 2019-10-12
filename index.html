@@ -3,24 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>BoomBloom</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""/>
 </head>
 <body class="row">
     <div class="col-5">
         <div id="metadata" class="row">
-            <div class="col-7">
+            <div id="metadatacol" class="col-7 align-baseline">
                 <select id="ville" class="form-control">St-Michel-en-Grève</select>
                 <select id="plage" class="form-control">La Lieue de Grève</select>
             </div>
-            <div id="indice" class="col-5">
+            <div id="metadatacol" class="col-5 align-items-center">
                 <div id="icone">:)</div>
                 <div id="pourcentage">70%</div>
             </div>
         </div>
-        <div id="charts" class="row">
-            <div class="chart"></div>
-            <div class="chart"></div>
+        <div class="col-12">
+            <div id="charts" class="row">
+                <div class="chart">
+                    <canvas id="chart1" width="500" height="250"></canvas>
+                </div>
+                <div class="chart">
+                    <canvas id="chart2" width="500" height="250"></canvas>
+                </div>
+            </div>
         </div>
     </div>
     <div id="map-wrapper" class="col-7">
@@ -29,10 +38,18 @@
             <input type="radio">OSM
             <input type="radio">Températures
         </div>
-        <div id="map"></div>
-    </div>
+        <div id="mapid"></div>
+    </div>  
+</script>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+    crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="./charts.js"></script>
+    <script src="./map.js"></script>
 </body>
 </html>
