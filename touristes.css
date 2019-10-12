@@ -5,8 +5,13 @@ html, body {
     overflow-x: hidden;
 }
 
+
+#welcome {
+    height: 10%;
+}
+
 #mapid {
-    height: 90%;
+    height: 80%;
     z-index: 1;
 }
 
@@ -18,7 +23,7 @@ html, body {
 #legend {
     position: fixed;
     z-index: 1000;
-    top: 120px;
+    top: 25%;
     left: 20px;
     width: 200px;
     height: 300px;
