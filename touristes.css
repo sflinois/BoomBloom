@@ -1,0 +1,31 @@
+html, body {
+    height: 100vh;
+    width: 100vw;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+#mapid {
+    height: 90%;
+    z-index: 1;
+}
+
+#navbar {
+    z-index: 1000;
+    height: 10%;
+}
+
+#legend {
+    position: fixed;
+    z-index: 1000;
+    top: 120px;
+    left: 20px;
+    width: 200px;
+    height: 300px;
+    padding: 10px;
+    font: 14px/18px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
