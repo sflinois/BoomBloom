@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="navbar navbar-expand-lg navbar-dark" id="navbar" style="background-color: #5d832e;">
-    <a href="#" class="navbar-brand">La météo des algues</a>
+    <a href="#" class="navbar-brand col-11">La météo des algues</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -36,39 +36,8 @@
   <form class="form-control">
   <div class="form-group form-check">
       <label class="form-check-label" for="defaultCheck1">
-          Données
+          Explications
       </label>
-  </div>
-  <div class="form-group form-check">
-      <input name="legend-input" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-      <label class="form-check-label" for="defaultCheck1">
-        Algues
-      </label>
-  </div>
-  <div class="form-group form-check">
-      <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-      <label class="form-check-label" for="defaultCheck2">
-        Campings
-      </label>
-  </div>
-  <div class="form-group form-check">
-      <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-      <label class="form-check-label" for="defaultCheck3">
-        Cours d'eau
-      </label>
-  </div>
-  <div class="form-group form-check">
-      <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
-      <label class="form-check-label" for="defaultCheck4">
-        Sable
-      </label>
-  </div>
-  <div class="form-group form-check">
-      <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
-      <label class="form-check-label" for="defaultCheck5">
-        Poisson
-      </label>
-  </div>
   </div>
   </form>
 </div>
@@ -122,6 +91,19 @@
     L.tileLayer.wms('https://geobretagne.fr/geoserver/ign/ows?', {
         layers: 'WMS:scan_littoral'
     }).addTo(mymap);
+
+    const xhr = new XMLHttpRequest();
+xhr.open('GET', 'data/hotels.json');
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.responseType = 'json';
+xhr.onload = function() {
+    if (xhr.status !== 200) return
+    L.geoJSON(xhr.response).addTo(mymap);
+};
+xhr.send();
+  // L.geoJSON('./data/camping.json').addTo(mymap);
+  // L.geoJSON('data/commune.json').addTo(mymap);
+  // L.geoJSON('data/hotels.json').addTo(mymap);
 
 </script>
 </body>
