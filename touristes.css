@@ -7,11 +7,13 @@ html, body {
 
 
 #welcome {
-    height: 10%;
+    padding: 2px 30px;
+    height: 3%;
+    background-color: #f8f991;
 }
 
 #mapid {
-    height: 80%;
+    height: 87%;
     z-index: 1;
 }
 
@@ -33,4 +35,8 @@ html, body {
     background: rgba(255,255,255,0.9);
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     border-radius: 5px;
+}
+
+#special {
+  display: none;
 }
