@@ -36,6 +36,5 @@ data2 = {
     infra : [0.4, 0.6, 0.5, 0.2, 0.3, 0.5, 0.7, 0.2, 0.3, 0.6, 0.5, 0.5]
 };
 labels =  ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
-renderChart(data1, labels, "chart1");
-renderChart(data2, labels, "chart2");
+renderChart(data1, labels, "chart");
 
