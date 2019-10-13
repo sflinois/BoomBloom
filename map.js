@@ -1,10 +1,10 @@
 // var mymap = L.map('mapid').setView([48.6739267, -3.5871429], 13);
-var mymap = L.map('mapid', {zoomControl: false}).setView([48.6739267, -3.5871429], 14);
-L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-	maxZoom: 18,
-	id: 'mapbox.streets',
-	accessToken: 'your.mapbox.access.token'
+var mymap = L.map('mapid', {zoomControl: false}).setView([48.6837671, -3.5896207], 14);
+let phototile = L.tileLayer.wms('https://geobretagne.fr/geoserver/photo/wms?', {
+    layers: 'WMS:ortho-22-2015'
+});
+let osmtile = L.tileLayer.wms('https://geobretagne.fr/geoserver/ign/ows?', {
+    layers: 'WMS:scan_littoral'
 }).addTo(mymap);
 
 mymap.dragging.disable();
