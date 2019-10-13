@@ -12,6 +12,9 @@
 </head>
 <body>
 <div class="navbar navbar-expand-lg navbar-dark" id="navbar" style="background-color: #5d832e;">
+    <div id="smiley-wrapper">
+    <img src="images/logo.png" id="logo-img"></img>
+    </div>
     <a href="#" class="navbar-brand col-11">La météo des algues</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
@@ -26,18 +29,36 @@
 <div class="row" id="welcome">
   <div class="col-12">
       <h6>Dimanche 13 octobre</h6>
-
-      <h5>Météo des algues</h5>
     </div>
 </div>
 <div id="mapid">
+</div>
+<div id="explications">
+  <form class="form-control">
+  <div class="form-group form-check">
+      <label class="form-check-label" for="defaultCheck1">
+          Légende
+      </label>
+      <div id="smiley-wrapper">
+        <img src="images/smiley-rouge.png" id="explication-smiley">
+      </div>
+      
+      <div id="explication-text">
+        indice calculé à partir de la détection d'algues sur images satélittes.
+      </div>
+  </div>
+  </form>
 </div>
 <div id="legend">
   <form class="form-control">
   <div class="form-group form-check">
       <label class="form-check-label" for="defaultCheck1">
-          Explications
+          Légende
       </label>
+      <div id="legend-text">
+        Forte présence d'algues sur les plages de Grève de Saint-Michel.
+        Potentiel risque sur la santée, plus d'informations sur <a href="http://draaf.bretagne.agriculture.gouv.fr/Plan-gouvernemental-de-lutte">agriculture.gouv.fr</a>
+      </div>
   </div>
   </form>
 </div>
@@ -97,9 +118,31 @@
         layers: 'WMS:scan_littoral'
     }).addTo(mymap);
 
-    
-  L.geoJSON(hotels).addTo(mymap);
-  L.geoJSON(camping).addTo(mymap);
+  function createCustomCampingIcon (feature, latlng) {
+    let myIcon = L.icon({
+      iconUrl: './data/camping-symbol.jpg',
+      iconSize:     [30, 30], // size of the icon
+      iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+    })
+    return L.marker(latlng, { icon: myIcon })
+  }
+  function createCustomHotelIcon (feature, latlng) {
+    let myIcon = L.icon({
+      iconUrl: './data/hotel-symbol.png',
+      iconSize:     [50, 50], // size of the icon
+      iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+    })
+    return L.marker(latlng, { icon: myIcon })
+  }
+  let myLayerCamping = {
+    pointToLayer: createCustomCampingIcon
+  }
+  let myLayerHotel = {
+    pointToLayer: createCustomHotelIcon
+  }
+
+  L.geoJSON(camping, myLayerCamping).addTo(mymap);
+  L.geoJSON(hotels, myLayerHotel).addTo(mymap);
   L.geoJSON(commune).addTo(mymap);
   L.geoJSON(plages).addTo(mymap);
 
