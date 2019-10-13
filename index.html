@@ -12,9 +12,9 @@
 <body>
     <div class="row" id="content">
         <div class="col-4" id="sidemenu">
-            <div id="title" class="row">
+            <div id="title" class="row align-items-center">
                 <div id="logo-wrapper">
-                    <img src="logo.png" alt="Logo">
+                    <img src="images/boombloom.png" alt="Logo">
                 </div>
                 <h1>BoomBloom</h1>
             </div>
@@ -46,7 +46,6 @@
         <div id="map-wrapper" class="col-8">
             <div id="mapid"></div>
         </div>
-        <div id="photosat"></div>
         <button id="change-map" type="button" class="btn btn-info">Satellite</button>
     </div>
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
@@ -57,36 +56,59 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="./charts.js"></script>
+    <script src="./config.js"></script>
     <script src="./map.js"></script>
     <script lang="js">
-        let mapwrapper = document.getElementById('map-wrapper');
         let button = document.getElementById('change-map');
-        let photosat = document.getElementById('photosat');
         let plage_select = document.getElementById('plage');
-        let mapDisplay = true;
+        let mapDisplay = false;
+
+        let capteurs_datasets = [];
+        let capteurs_labels = [];
+
 
         button.addEventListener('click', (e) => {
             if (mapDisplay) {
-                photosat.style.display = 'none';
-                mapwrapper.style.display = 'block';
+                osmtile.addTo(mymap)
+                phototile.remove();
             }
             else {
-                photosat.style.display = 'block';
-                mapwrapper.style.display = 'none';
+                phototile.addTo(mymap)
+                osmtile.remove();
             }
             mapDisplay = !mapDisplay
         });
 
         plage_select.addEventListener('change', () => {
             if (plage_select.options[plage_select.options.selectedIndex].value === 'greve') {
-                // Centrer map
                 mymap.setView([48.6797981,-3.6482218])
-                // Recherger emprise et data depuis flask
-                // recharger courbes temp depuis flask
-                // recharger data temp à correler -> meme car dans la meme commune
+                fetch('http:/172.30.2.241:8080/fond/5')
+                    .then(res => res.json())
+                    .then(renderChartFromData)
                 document.getElementById('smiley').src = './images/smiley_vert.png'
             }
         })
+
+        function renderChartFromData(res) {
+            let datasets = [];
+            let labels;
+            for (let [label, data] of Object.entries(res)) {
+                console.log(Object.keys(data));
+                datasets.push({
+                    label,
+                    data: Object.values(data),
+                    borderColor: COLORS[Math.floor(Math.random()*5)] + "",
+                    borderWidth: 3,
+                    fill: false,
+                });
+                labels = Object.keys(data);
+            }
+            renderChart(datasets, labels, 'chart')
+        }
+
+        fetch('http:/172.30.2.241:8080/fond/4')
+            .then(res => res.json())
+            .then(renderChartFromData)
 
     </script>
 </body>

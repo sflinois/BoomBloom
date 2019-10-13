@@ -98,10 +98,16 @@
     }).addTo(mymap);
 
     
-  L.geoJSON(hotels).addTo(mymap);
-  L.geoJSON(camping).addTo(mymap);
-  L.geoJSON(commune).addTo(mymap);
-  L.geoJSON(plages).addTo(mymap);
+  // L.geoJSON(hotels).addTo(mymap);
+  // L.geoJSON(camping).addTo(mymap);
+  // L.geoJSON(commune).addTo(mymap);
+  L.geoJSON(plages, {
+      style: {
+          "color": "#ff7800",
+          "weight": 5,
+          "opacity": 0.65
+      }
+  }).addTo(mymap);
 
 
 
