@@ -2,10 +2,10 @@
 var mymap = L.map('mapid', {zoomControl: false}).setView([48.6837671, -3.5896207], 14);
 let phototile = L.tileLayer.wms('https://geobretagne.fr/geoserver/photo/wms?', {
     layers: 'WMS:ortho-22-2015'
-});
+}).addTo(mymap);
 let osmtile = L.tileLayer.wms('https://geobretagne.fr/geoserver/ign/ows?', {
     layers: 'WMS:scan_littoral'
-}).addTo(mymap);
+});
 
 mymap.dragging.disable();
 mymap.touchZoom.disable();

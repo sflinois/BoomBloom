@@ -6,6 +6,10 @@ html, body {
 
 }
 
+* {
+    font-family: 'Lucida Sans Unicode', serif;
+}
+
 body {
     background-color: #e5e9e5 !important;
 }

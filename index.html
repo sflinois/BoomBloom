@@ -32,7 +32,7 @@
                 </select>
             </div>
             <div id="indice">
-                <img id=smiley src="./images/smiley-rouge.png" alt="Indice OK">
+                <img id=smiley src="./images/smiley_vert.png" alt="Indice OK">
             </div>
             <div class="w-100" style="height: 0; border-bottom: 1px solid grey; margin-bottom: 20px"></div>
 
@@ -61,54 +61,86 @@
     <script lang="js">
         let button = document.getElementById('change-map');
         let plage_select = document.getElementById('plage');
-        let mapDisplay = false;
+        let mapDisplay = true;
 
         let capteurs_datasets = [];
         let capteurs_labels = [];
 
+        let territoire_datasets = [];
+        let territoire_labels = [];
+
+        let plage1_json = {
+            "IR": {"20180415": 0.014980544747081711, "20180420": 0.05486381322957199, "20180425": 0.03229571984435798,
+                "20180430": 0.039105058365758755, "20180505": 0.026070038910505838, "20180520": 0.032879377431906616,
+                "20180629": 0.022568093385214007, "20180719": 0.039105058365758755, "20180724": 0.04552529182879377,
+                "20180803": 0.04649805447470817},
+            "NDVI": {"20180415": 0.0, "20180420": 0.07976653696498054, "20180425": 0.027237354085603113,
+                "20180430": 0.03696498054474708, "20180505": 0.007782101167315175,
+                "20180520": 0.058365758754863814, "20180629": 0.0311284046692607, "20180719": 0.033073929961089495,
+                "20180724": 0.009727626459143969, "20180803": 0.0019455252918287938}
+        }
+
+        let plage2_json = {"NDVI": {"20180417": 0.008165919930625813, "20180420": 0.0067928891458303225,
+                "20180422": 0.005708917473623356, "20180505": 0.01120104061280532,
+                "20180507": 0.007226477814713109, "20180517": 0.012935395288336465,
+                "20180520": 0.017054487642722937, "20180522": 0.014019366960543431,
+                "20180629": 0.010550657609481139, "20180719": 0.008960832490244255,
+                "20180803": 0.004263621910680734, "20180825": 0.026882497470732764},
+            "IR": {"20180417": 0.00462494580141639, "20180420": 0.0004335886688827865,
+                "20180422": 0.0010839716722069663, "20180505": 0.0014452955629426219,
+                "20180507": 0.0012285012285012285, "20180517": 0.009411764705882353,
+                "20180520": 0.011056511056511056, "20180522": 0.007226477814713109,
+                "20180629": 0.015681456857927448, "20180719": 0.004841740135857783,
+                "20180803": 0.0030351206821795057, "20180825": 0.020956785662668016}
+        }
 
         button.addEventListener('click', (e) => {
             if (mapDisplay) {
-                osmtile.addTo(mymap)
+                osmtile.addTo(mymap);
                 phototile.remove();
+                renderChart(territoire_datasets, territoire_labels, 'chart')
+                button.innerText = 'Satellite';
             }
             else {
                 phototile.addTo(mymap)
                 osmtile.remove();
+                renderChart(capteurs_datasets, capteurs_labels, 'chart')
+                button.innerText = 'Carte';
             }
             mapDisplay = !mapDisplay
         });
 
         plage_select.addEventListener('change', () => {
             if (plage_select.options[plage_select.options.selectedIndex].value === 'greve') {
+                renderChartFromData(plage2_json)
+                document.getElementById('smiley').src = './images/smiley-rouge.png';
                 mymap.setView([48.6797981,-3.6482218])
-                fetch('http:/172.30.2.241:8080/fond/5')
-                    .then(res => res.json())
-                    .then(renderChartFromData)
-                document.getElementById('smiley').src = './images/smiley_vert.png'
+            }
+            else {
+                renderChartFromData(plage1_json)
+                document.getElementById('smiley').src = './images/smiley_vert.png';
+                mymap.setView([48.6837671, -3.5896207])
             }
         })
 
         function renderChartFromData(res) {
-            let datasets = [];
-            let labels;
+            capteurs_datasets = [];
+            capteurs_labels = [];
             for (let [label, data] of Object.entries(res)) {
                 console.log(Object.keys(data));
-                datasets.push({
+                capteurs_datasets.push({
                     label,
                     data: Object.values(data),
                     borderColor: COLORS[Math.floor(Math.random()*5)] + "",
                     borderWidth: 3,
                     fill: false,
                 });
-                labels = Object.keys(data);
+                capteurs_labels = Object.keys(data);
             }
-            renderChart(datasets, labels, 'chart')
+            renderChart(capteurs_datasets, capteurs_labels, 'chart')
         }
 
-        fetch('http:/172.30.2.241:8080/fond/4')
-            .then(res => res.json())
-            .then(renderChartFromData)
+        renderChartFromData(plage1_json)
 
     </script>
 </body>
