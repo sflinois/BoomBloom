@@ -1,5 +1,5 @@
 // var mymap = L.map('mapid').setView([48.6739267, -3.5871429], 13);
-var mymap = L.map('mapid', {zoomControl: false}).setView([48.6739267, -3.5871429], 14);
+var mymap = L.map('mapid', {zoomControl: false}).setView([48.6837671, -3.5896207], 14);
 L.tileLayer.wms('https://geobretagne.fr/geoserver/ign/ows?', {
     layers: 'WMS:scan_littoral'
 }).addTo(mymap);

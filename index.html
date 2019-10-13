@@ -32,7 +32,7 @@
                 </select>
             </div>
             <div id="indice">
-                <img src="./images/smiley-jaune.png" alt="Indice OK">
+                <img id=smiley src="./images/smiley-rouge.png" alt="Indice OK">
             </div>
             <div class="w-100" style="height: 0; border-bottom: 1px solid grey; margin-bottom: 20px"></div>
 
@@ -78,12 +78,13 @@
         });
 
         plage_select.addEventListener('change', () => {
-            if (plage_select.options[plage_select.options.selectedIndex] === 'greve') {
+            if (plage_select.options[plage_select.options.selectedIndex].value === 'greve') {
                 // Centrer map
+                mymap.setView([48.6797981,-3.6482218])
                 // Recherger emprise et data depuis flask
                 // recharger courbes temp depuis flask
                 // recharger data temp à correler -> meme car dans la meme commune
-                // changer le smiley
+                document.getElementById('smiley').src = './images/smiley_vert.png'
             }
         })
 
