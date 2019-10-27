@@ -74,7 +74,9 @@ h4 {
     z-index: 1000;
     border-radius: 5px;
     border: 2px solid white;
-    background: url('./images/img_sat.PNG') no-repeat no-repeat;
+    background: url('./images/img_topo.PNG') no-repeat no-repeat;
     font-size: .8em;
+    color: black;
+    text-shadow : white;
     text-align: center;
 }
