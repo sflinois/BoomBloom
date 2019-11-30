@@ -32,7 +32,7 @@
                 </select>
             </div>
             <div id="indice">
-                <img id=smiley src="./images/smiley_vert.png" alt="Indice OK">
+                <img id=smiley src="./images/smiley-rouge.png" alt="Indice OK">
             </div>
             <div class="w-100" style="height: 0; border-bottom: 1px solid grey; margin-bottom: 20px"></div>
 
@@ -69,7 +69,7 @@
         let territoire_datasets = [];
         let territoire_labels = [];
 
-        let plage1_json = {
+        let plage2_json = {
             "IR": {"20180415": 0.014980544747081711, "20180420": 0.05486381322957199, "20180425": 0.03229571984435798,
                 "20180430": 0.039105058365758755, "20180505": 0.026070038910505838, "20180520": 0.032879377431906616,
                 "20180629": 0.022568093385214007, "20180719": 0.039105058365758755, "20180724": 0.04552529182879377,
@@ -80,7 +80,7 @@
                 "20180724": 0.009727626459143969, "20180803": 0.0019455252918287938}
         }
 
-        let plage2_json = {"NDVI": {"20180417": 0.008165919930625813, "20180420": 0.0067928891458303225,
+        let plage1_json = {"NDVI": {"20180417": 0.008165919930625813, "20180420": 0.0067928891458303225,
                 "20180422": 0.005708917473623356, "20180505": 0.01120104061280532,
                 "20180507": 0.007226477814713109, "20180517": 0.012935395288336465,
                 "20180520": 0.017054487642722937, "20180522": 0.014019366960543431,
@@ -113,12 +113,12 @@
         plage_select.addEventListener('change', () => {
             if (plage_select.options[plage_select.options.selectedIndex].value === 'greve') {
                 renderChartFromData(plage2_json)
-                document.getElementById('smiley').src = './images/smiley-rouge.png';
+                document.getElementById('smiley').src = './images/smiley_vert.png';
                 mymap.setView([48.6797981,-3.6482218])
             }
             else {
                 renderChartFromData(plage1_json)
-                document.getElementById('smiley').src = './images/smiley_vert.png';
+                document.getElementById('smiley').src = './images/smiley-rouge.png';
                 mymap.setView([48.6837671, -3.5896207])
             }
         })
