@@ -4,63 +4,74 @@
     <meta charset="UTF-8">
     <title>BoomBloom</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin=""/>
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""/>
 </head>
 <body>
     <div class="row" id="content">
-        <div class="col-4" id="sidemenu">
-            <div id="title" class="row align-items-center">
+        <div class="col-2" id="sidemenu">
+            <div id="title" class="row">
                 <div id="logo-wrapper">
                     <img src="images/logo.png" alt="Logo">
                 </div>
                 <h1>BoomBloom</h1>
             </div>
+            <div id="subtitle"><i>Tableau de bord pour la visualisaton et l'interprétation des phénomènes d'algues vertes en
+                Bretagne</i></div>
             <div class="w-100" style="height: 0; border-bottom: 1px solid grey"></div>
             <div id="metadata">
-                <label for="ville">Ville: </label>
-                <select id="ville" class="form-control">
-                    <option>St-Michel-en-Grève</option>
+                <label for="commune">Commune: </label>
+                <select id="commune" class="form-control">
+                    <option value="plestin">Plestin-les-grèves</option>
+                    <option value="locquirec">Locquirec</option>
                 </select>
                 <label for="plage">Plage: </label>
                 <select id="plage" class="form-control">
-                    <option value="">La Lieue de Grève</option>
-                    <option value="">Plage de Tossen Arc Choz</option>
+                    <option value="lieue">La Lieue de Grève</option>
                     <option value="greve">Grève des Curés</option>
                 </select>
             </div>
             <div id="indice">
                 <img id=smiley src="./images/smiley-rouge.png" alt="Indice OK">
             </div>
-            <div class="w-100" style="height: 0; border-bottom: 1px solid grey; margin-bottom: 20px"></div>
-
-            <div>
-                <div id="charts" class="row">
-                    <h4>Evolution temporelle</h4>
-                        <canvas id="chart" width="400" height="300"></canvas>
-                </div>
-            </div>
+            <i class="mx-auto" style="font-size: 0.8em;text-align: center">Indice de confiance de présence d'algues verte, calculé à partir des données</i>
         </div>
-        <div id="map-wrapper" class="col-8">
+        <div id="map-wrapper" class="col-10">
             <div id="mapid"></div>
         </div>
         <button id="change-map" type="button" class="btn btn-info">Carte Thématique</button>
     </div>
+    <div id="dashboard" class="row col-12 justify-content-around pt-3">
+        <div>
+            <h6>Courbes d'évolution temporelle d'indicateur physiques</h6>
+            <canvas id="chart-physique" width="400" height="300" class="my-3"></canvas>
+        </div>
+        <div>
+            <h6>Courbes d'évolution temporelle du spectre associé à la plage</h6>
+            <canvas id="chart-spectre" width="400" height="300" class="my-3"></canvas>
+        </div>
+    </div>
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-    crossorigin=""></script>
+            integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+            crossorigin=""></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
     <script src="./charts.js"></script>
     <script src="./config.js"></script>
     <script src="./map.js"></script>
     <script lang="js">
         let button = document.getElementById('change-map');
         let plage_select = document.getElementById('plage');
+        let commune_select = document.getElementById('commune');
         let mapDisplay = true;
 
         let capteurs_datasets = [];
@@ -70,44 +81,52 @@
         let territoire_labels = [];
 
         let plage2_json = {
-            "IR": {"20180415": 0.014980544747081711, "20180420": 0.05486381322957199, "20180425": 0.03229571984435798,
+            "IR": {
+                "20180415": 0.014980544747081711, "20180420": 0.05486381322957199, "20180425": 0.03229571984435798,
                 "20180430": 0.039105058365758755, "20180505": 0.026070038910505838, "20180520": 0.032879377431906616,
                 "20180629": 0.022568093385214007, "20180719": 0.039105058365758755, "20180724": 0.04552529182879377,
-                "20180803": 0.04649805447470817},
-            "NDVI": {"20180415": 0.0, "20180420": 0.07976653696498054, "20180425": 0.027237354085603113,
+                "20180803": 0.04649805447470817
+            },
+            "NDVI": {
+                "20180415": 0.0, "20180420": 0.07976653696498054, "20180425": 0.027237354085603113,
                 "20180430": 0.03696498054474708, "20180505": 0.007782101167315175,
                 "20180520": 0.058365758754863814, "20180629": 0.0311284046692607, "20180719": 0.033073929961089495,
-                "20180724": 0.009727626459143969, "20180803": 0.0019455252918287938}
+                "20180724": 0.009727626459143969, "20180803": 0.0019455252918287938
+            }
         }
 
-        let plage1_json = {"NDVI": {"20180417": 0.008165919930625813, "20180420": 0.0067928891458303225,
+        let plage1_json = {
+            "NDVI": {
+                "20180417": 0.008165919930625813, "20180420": 0.0067928891458303225,
                 "20180422": 0.005708917473623356, "20180505": 0.01120104061280532,
                 "20180507": 0.007226477814713109, "20180517": 0.012935395288336465,
                 "20180520": 0.017054487642722937, "20180522": 0.014019366960543431,
                 "20180629": 0.010550657609481139, "20180719": 0.008960832490244255,
-                "20180803": 0.004263621910680734, "20180825": 0.026882497470732764},
-            "IR": {"20180417": 0.00462494580141639, "20180420": 0.0004335886688827865,
+                "20180803": 0.004263621910680734, "20180825": 0.026882497470732764
+            },
+            "IR": {
+                "20180417": 0.00462494580141639, "20180420": 0.0004335886688827865,
                 "20180422": 0.0010839716722069663, "20180505": 0.0014452955629426219,
                 "20180507": 0.0012285012285012285, "20180517": 0.009411764705882353,
                 "20180520": 0.011056511056511056, "20180522": 0.007226477814713109,
                 "20180629": 0.015681456857927448, "20180719": 0.004841740135857783,
-                "20180803": 0.0030351206821795057, "20180825": 0.020956785662668016}
+                "20180803": 0.0030351206821795057, "20180825": 0.020956785662668016
+            }
         }
 
         button.addEventListener('click', (e) => {
             if (mapDisplay) {
                 osmtile.addTo(mymap);
                 phototile.remove();
-                renderChart(territoire_datasets, territoire_labels, 'chart')
+                renderChart(territoire_datasets, territoire_labels, 'chart-spectre')
                 button.style.backgroundImage = "url('./images/img_sat.PNG')";
                 button.style.backgroundRepeat = "no-repeat";
                 button.style.color = "white";
                 button.innerText = 'Satellite';
-            }
-            else {
+            } else {
                 phototile.addTo(mymap)
                 osmtile.remove();
-                renderChart(capteurs_datasets, capteurs_labels, 'chart')
+                renderChart(capteurs_datasets, capteurs_labels, 'chart-spectre')
                 button.style.backgroundImage = "url('./images/img_topo.PNG')";
                 button.style.backgroundRepeat = "no-repeat";
                 button.style.color = "black";
@@ -118,32 +137,40 @@
 
         plage_select.addEventListener('change', () => {
             if (plage_select.options[plage_select.options.selectedIndex].value === 'greve') {
-                renderChartFromData(plage2_json)
+                renderChartFromData(plage2_json);
                 document.getElementById('smiley').src = './images/smiley_vert.png';
-                mymap.setView([48.6797981,-3.6482218])
-            }
-            else {
-                renderChartFromData(plage1_json)
+                mymap.setView([48.6797981, -3.6482218]);
+            } else if (plage_select.options[plage_select.options.selectedIndex].value === 'lieue') {
+                renderChartFromData(plage1_json);
                 document.getElementById('smiley').src = './images/smiley-rouge.png';
-                mymap.setView([48.6837671, -3.5896207])
+                mymap.setView([48.6837671, -3.5896207]);
             }
-        })
+        });
+
+        commune_select.addEventListener('change', (e) => {
+            let commune = e.target.value;
+            if (commune === 'plestin') {
+                plage_select.innerHTML = "<option value='lieue'>La Lieue de Grève</option><option value='greve'>Grève des Curés</option>";
+            } else {
+                plage_select.innerHTML = "<option>Plage des sables</option><option>Toul ar goué</option> <option>Pointe du corbeau</option><option>Le moulin de la rive</option>";
+            }
+        });
 
         function renderChartFromData(res) {
             capteurs_datasets = [];
             capteurs_labels = [];
             for (let [label, data] of Object.entries(res)) {
-                console.log(Object.keys(data));
+                console.log(label, data);
                 capteurs_datasets.push({
                     label,
                     data: Object.values(data),
-                    borderColor: COLORS[Math.floor(Math.random()*5)] + "",
+                    borderColor: COLORS[label] + "",
                     borderWidth: 3,
                     fill: false,
                 });
                 capteurs_labels = Object.keys(data);
             }
-            renderChart(capteurs_datasets, capteurs_labels, 'chart')
+            renderChart(capteurs_datasets, capteurs_labels, 'chart-spectre')
         }
 
         renderChartFromData(plage1_json)

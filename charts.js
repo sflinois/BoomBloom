@@ -10,4 +10,5 @@ function renderChart(datasets, labels, name) {
     });
 }
 
-renderChart([], [], "chart");
+renderChart([], [], "chart-spectre");
+renderChart([], [], "chart-physique");

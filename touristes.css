@@ -1,8 +1,8 @@
 html, body {
     height: 100vh;
     width: 100vw;
-    overflow-y: hidden;
     overflow-x: hidden;
+    background-color: whitesmoke;
 }
 
 
@@ -15,63 +15,60 @@ html, body {
 }
 
 #mapid {
-    height: 87%;
+    height: 500px;
     z-index: 1;
+    border: 1px solid grey;
+    box-shadow: 2px 2px 20px -5px grey;
 }
 
 #navbar {
     z-index: 1000;
     height: 10%;
 }
-#explications {
-  top: 25%;
-  left: 20px;
-  width: 200px;
-  height: 300px;
-}
 
-#legend {
-  bottom: 50px;
-  right: 50px;
-  width: 300px;
-  height: 400px;
-}
-
-#legend, #explications {
-    position: fixed;
+.legende {
+    width: 150px;
+    height: 400px;
     z-index: 1000;
     padding: 10px;
+    margin: 20px;
     font: 14px/18px Arial, Helvetica, sans-serif;
-    background: white;
-    background: rgba(255,255,255,0.9);
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    border-radius: 5px;
+    background: rgb(250, 250, 250);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
 }
 
-#legend-text, #explication-text{
-  padding: 20px 0px;
+#legend-text, #explication-text {
+    padding: 20px 0px;
 }
 
-#explication-text span { 
-  background-color: orange; 
+#explication-text span {
+    background-color: orange;
 }
 
 #smiley-wrapper {
-  padding: 20px 30px 5px;
+    padding: 20px 30px 5px;
 }
+
 #logo-img {
-  width: 50px;
-  height: 50px;
+    width: 50px;
+    height: 50px;
 }
+
 #explication-smiley {
-  width: 60px;
-  height: 60px;
+    width: 60px;
+    height: 60px;
 }
+
 #explication-indice {
-  width: 100%;
-  height: 30px;
+    width: 100%;
+    height: 30px;
 }
 
 #special {
-  display: none;
+    display: none;
+}
+
+#sticky-footer {
+    flex-shrink: none;
 }
