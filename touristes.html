@@ -101,7 +101,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Envoyer</button>
                 </div>
             </div>
@@ -125,7 +125,7 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <script lang="js">
-        var mymap = L.map('mapid', {zoomControl: false}).setView([48.6739267, -3.5871429], 14);
+        var mymap = L.map('mapid', {zoomControl: false}).setView([48.6739267, -3.5971429], 13);
         L.tileLayer.wms('https://geobretagne.fr/geoserver/ign/ows?', {
             layers: 'WMS:scan_littoral'
         }).addTo(mymap);
@@ -136,21 +136,22 @@
                 iconUrl: './images/smiley-' + color + '.png',
                 iconSize: new Array(2).fill(iconSize), // size of the icon
                 iconAnchor: new Array(2).fill(iconSize / 2), // point of the icon which will correspond to marker's location
-                popupAnchor: [0, -iconSize]
+                popupAnchor: [0, -iconSize/2]
             });
             return L.marker(latlng, {icon}).bindPopup('yo');
         }
 
-        createSmileyMarker([48.6767671, -3.5896207], 'vert').addTo(mymap);
+        createSmileyMarker([48.6767671, -3.5896207], 'rouge').addTo(mymap);
+        createSmileyMarker([48.6797981, -3.6482218], 'vert').addTo(mymap);
 
-        let legend = L.control({position: 'bottomleft'});
+        let legend = L.control({position: 'bottomright'});
 
         legend.onAdd = function (mymap) {
 
             let div = L.DomUtil.create('div', 'legende');
 
             // loop through our density intervals and generate a label with a colored square for each interval
-            div.innerHTML = 'yo';
+            div.innerHTML = '<img src="images/legende.PNG" style="width: 100%; height: 100%"/>';
 
             return div;
         };

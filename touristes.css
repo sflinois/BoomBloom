@@ -27,11 +27,11 @@ html, body {
 }
 
 .legende {
-    width: 150px;
-    height: 400px;
+    width: 250px;
+    height: 280px;
     z-index: 1000;
     padding: 10px;
-    margin: 20px;
+    margin: 25px;
     font: 14px/18px Arial, Helvetica, sans-serif;
     background: rgb(250, 250, 250);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);

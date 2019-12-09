@@ -44,14 +44,22 @@
         </div>
         <button id="change-map" type="button" class="btn btn-info">Carte Thématique</button>
     </div>
-    <div id="dashboard" class="row col-12 justify-content-around pt-3">
-        <div>
-            <h6>Courbes d'évolution temporelle d'indicateur physiques</h6>
-            <canvas id="chart-physique" width="400" height="300" class="my-3"></canvas>
+    <div id="dashboard" class="row col-12 pt-3">
+        <div id="graphes-geographiques" class="row w-100 justify-content-around">
+            <div>
+                <h6>Courbes d'évolution temporelle d'indicateur physiques</h6>
+                <canvas id="chart-physique" width="400" height="300" class="my-3"></canvas>
+            </div>
+            <div>
+                <h6>Courbes d'évolution temporelle du spectre associé à la plage</h6>
+                <canvas id="chart-spectre" width="400" height="300" class="my-3"></canvas>
+            </div>
         </div>
-        <div>
-            <h6>Courbes d'évolution temporelle du spectre associé à la plage</h6>
-            <canvas id="chart-spectre" width="400" height="300" class="my-3"></canvas>
+        <div id="graphes-thematiques" class="row w-100 justify-content-around graphes-caches">
+            <div>
+                <h6>Diagramme thématique de fréquentations touristiques</h6>
+                <canvas id="chart-thematique" width="400" height="300" class="my-3"></canvas>
+            </div>
         </div>
     </div>
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
@@ -72,6 +80,8 @@
         let button = document.getElementById('change-map');
         let plage_select = document.getElementById('plage');
         let commune_select = document.getElementById('commune');
+        let graphesGeographiques = document.getElementById('graphes-geographiques');
+        let graphesThematiques = document.getElementById('graphes-thematiques');
         let mapDisplay = true;
 
         let capteurs_datasets = [];
@@ -82,16 +92,16 @@
 
         let plage2_json = {
             "IR": {
-                "20180415": 0.014980544747081711, "20180420": 0.05486381322957199, "20180425": 0.03229571984435798,
-                "20180430": 0.039105058365758755, "20180505": 0.026070038910505838, "20180520": 0.032879377431906616,
-                "20180629": 0.022568093385214007, "20180719": 0.039105058365758755, "20180724": 0.04552529182879377,
-                "20180803": 0.04649805447470817
+                "2018-04-15": 0.014980544747081711, "2018-04-20": 0.05486381322957199, "2018-04-25": 0.03229571984435798,
+                "2018-04-30": 0.039105058365758755, "2018-05-05": 0.026070038910505838, "2018-05-20": 0.032879377431906616,
+                "2018-06-29": 0.022568093385214007, "2018-07-19": 0.039105058365758755, "2018-07-24": 0.04552529182879377,
+                "2018-08-03": 0.04649805447470817
             },
             "NDVI": {
-                "20180415": 0.0, "20180420": 0.07976653696498054, "20180425": 0.027237354085603113,
-                "20180430": 0.03696498054474708, "20180505": 0.007782101167315175,
-                "20180520": 0.058365758754863814, "20180629": 0.0311284046692607, "20180719": 0.033073929961089495,
-                "20180724": 0.009727626459143969, "20180803": 0.0019455252918287938
+                "2018-04-15": 0.0, "2018-04-20": 0.07976653696498054, "2018-04-25": 0.027237354085603113,
+                "2018-04-30": 0.03696498054474708, "2018-05-05": 0.007782101167315175,
+                "2018-05-20": 0.058365758754863814, "2018-06-29": 0.0311284046692607, "2018-07-19": 0.033073929961089495,
+                "2018-07-24": 0.009727626459143969, "2018-08-03": 0.0019455252918287938
             }
         }
 
@@ -112,36 +122,62 @@
                 "20180629": 0.015681456857927448, "20180719": 0.004841740135857783,
                 "20180803": 0.0030351206821795057, "20180825": 0.020956785662668016
             }
-        }
+        };
+
+        let indicateurs1_json = {
+            "Salinité (psu)": {
+                "2018-04": 35.5, "2018-05": 35.4, "2018-06": 35.2, "2018-07": 35.2,
+                "2018-08": 35.1, "2018-09": 35.2, "2018-10":35.4
+            },
+            "Température (°C)": {
+                "2018-04": 12, "2018-05": 14, "2018-06": 16, "2018-07": 17,
+                "2018-08": 18, "2018-09": 18, "2018-10":16
+            }
+        };
+
+        let indicateurs2_json = {
+            "Salinité (psu)": {
+                "2018-04": 35.5, "2018-05": 35.2, "2018-06": 35.3, "2018-07": 35.4,
+                "2018-08": 35.3, "2018-09": 35.4, "2018-10":35.4
+            },
+            "Température (°C)": {
+                "2018-04": 12, "2018-05": 13, "2018-06": 15, "2018-07": 17,
+                "2018-08": 18, "2018-09": 19, "2018-10": 17
+            }
+        };
 
         button.addEventListener('click', (e) => {
             if (mapDisplay) {
                 osmtile.addTo(mymap);
                 phototile.remove();
-                renderChart(territoire_datasets, territoire_labels, 'chart-spectre')
                 button.style.backgroundImage = "url('./images/img_sat.PNG')";
                 button.style.backgroundRepeat = "no-repeat";
                 button.style.color = "white";
                 button.innerText = 'Satellite';
+                graphesGeographiques.classList.add('graphes-caches');
+                graphesThematiques.classList.remove('graphes-caches');
             } else {
                 phototile.addTo(mymap)
                 osmtile.remove();
-                renderChart(capteurs_datasets, capteurs_labels, 'chart-spectre')
                 button.style.backgroundImage = "url('./images/img_topo.PNG')";
                 button.style.backgroundRepeat = "no-repeat";
                 button.style.color = "black";
                 button.innerText = 'Carte Thématique';
+                graphesGeographiques.classList.remove('graphes-caches');
+                graphesThematiques.classList.add('graphes-caches');
             }
             mapDisplay = !mapDisplay
         });
 
         plage_select.addEventListener('change', () => {
             if (plage_select.options[plage_select.options.selectedIndex].value === 'greve') {
-                renderChartFromData(plage2_json);
-                document.getElementById('smiley').src = './images/smiley_vert.png';
+                renderChartFromData(plage2_json, 'chart-spectre');
+                renderChartFromData(indicateurs2_json, 'chart-physique');
+                document.getElementById('smiley').src = './images/smiley-vert.png';
                 mymap.setView([48.6797981, -3.6482218]);
             } else if (plage_select.options[plage_select.options.selectedIndex].value === 'lieue') {
-                renderChartFromData(plage1_json);
+                renderChartFromData(plage1_json, 'chart-spectre');
+                renderChartFromData(indicateurs1_json, 'chart-physique');
                 document.getElementById('smiley').src = './images/smiley-rouge.png';
                 mymap.setView([48.6837671, -3.5896207]);
             }
@@ -156,7 +192,7 @@
             }
         });
 
-        function renderChartFromData(res) {
+        function renderChartFromData(res, chart) {
             capteurs_datasets = [];
             capteurs_labels = [];
             for (let [label, data] of Object.entries(res)) {
@@ -170,10 +206,11 @@
                 });
                 capteurs_labels = Object.keys(data);
             }
-            renderChart(capteurs_datasets, capteurs_labels, 'chart-spectre')
+            renderChart(capteurs_datasets, capteurs_labels, chart)
         }
 
-        renderChartFromData(plage1_json)
+        renderChartFromData(plage1_json, 'chart-spectre');
+        renderChartFromData(indicateurs1_json, 'chart-physique');
 
     </script>
 </body>
